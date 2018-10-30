@@ -1,6 +1,9 @@
 package ru.ioffe.spbstu.impulsetime;
 
 import org.junit.Test;
+import org.knowm.xchart.QuickChart;
+import org.knowm.xchart.SwingWrapper;
+import org.knowm.xchart.XYChart;
 
 public class ImpulseTimeTest {
 
@@ -15,7 +18,15 @@ public class ImpulseTimeTest {
         PreparedTimeHistory preparedTimeHistory = TimeHistoryPreparator.prepareHistory(timeHistory);
         //System.err.println(preparedTimeHistory);
 
-        TimeHistoryCumulative.cumulateFunction(preparedTimeHistory, 1, 1100, 2200, TimeHistoryCumulative.Type.T90);
+        new TimeHistoryCumulative().cumulateFunction(preparedTimeHistory, 1, 1100, 2200, TimeHistoryCumulative.Type.T90, 1000);
 
+        double xData[] = new double[2200-1100];
+        for(int i=0; i < 1100; i++) {
+            xData[i] = 1100 + i;
+        }
+        double yData[] = new double[2200-1100];
+        for(int i=0; i < 1100; i++) {
+            yData[i] = preparedTimeHistory.timeHistory[1100+i][1];
+        }
     }
 }
